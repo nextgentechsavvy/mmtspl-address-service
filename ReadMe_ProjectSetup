@@ -78,6 +78,10 @@ Url
 
   	http://localhost:9002/restapiaddressservices/getAllAddress
 
+  	http://localhost:9002/restapiaddressservices/getAllEmployeeID
+
+  	http://localhost:9002/restapiaddressservices/getAddressByEmployeeID/1000
+
   	http://localhost:9002/restapiaddressservices/getAddressById/3000
 
   	
