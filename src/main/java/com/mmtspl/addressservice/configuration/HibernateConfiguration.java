@@ -11,7 +11,7 @@ import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import com.mmtspl.addressservice.model.MySQLBDUrls;
-import com.mmtspl.addressservice.service.MySQLBDUrlsService;
+//import com.mmtspl.addressservice.service.MySQLBDUrlsService;
 
 @Configuration
 @EnableTransactionManagement
@@ -81,20 +81,20 @@ public class HibernateConfiguration {
 		//mySQLBDUrls = new MySQLBDUrlsService().getMySQLBDUrls(baseUrl, port, mySQLBDUrlsServiceUri);
 		
 		//Calling using Zull API Gateway Server
-		mySQLBDUrls = new MySQLBDUrlsService().getMySQLBDUrlsZullAPIGateway(zullAPIGatewayHTTP, zullAPIGatewayIP, 
-				zullAPIGatewayPort, dbServiceApplicationName, mySQLBDUrlsServiceUri);
+		//mySQLBDUrls = new MySQLBDUrlsService().getMySQLBDUrlsZullAPIGateway(zullAPIGatewayHTTP, zullAPIGatewayIP,
+		//		zullAPIGatewayPort, dbServiceApplicationName, mySQLBDUrlsServiceUri);
 		
-		if(mySQLBDUrls.getStatus() == false) {
+		//if(mySQLBDUrls.getStatus() == false) {
 			dataSource.setDriverClassName(DRIVER);
 			dataSource.setUrl(URL);
 			dataSource.setUsername(USERNAME);
 			dataSource.setPassword(PASSWORD);
-		}else {
+		/*}else {
 			dataSource.setDriverClassName(mySQLBDUrls.getDriver());
 			dataSource.setUrl(mySQLBDUrls.getUrl());
 			dataSource.setUsername(mySQLBDUrls.getUsername());
 			dataSource.setPassword(mySQLBDUrls.getPassword());
-		}
+		}*/
 		return dataSource;
 	}
 
@@ -105,17 +105,17 @@ public class HibernateConfiguration {
 		Properties hibernateProperties = new Properties();
 		
 		
-		if(mySQLBDUrls.getStatus() == false) {
+		//if(mySQLBDUrls.getStatus() == false) {
 			sessionFactory.setPackagesToScan(PACKAGES_TO_SCAN);
 			hibernateProperties.put("hibernate.dialect", DIALECT);
 			hibernateProperties.put("hibernate.show_sql", SHOW_SQL);
 			hibernateProperties.put("hibernate.hbm2ddl.auto", HBM2DDL_AUTO);
-		}else {
+		/*}else {
 			sessionFactory.setPackagesToScan(mySQLBDUrls.getEntitymanager_packagesToScan());
 			hibernateProperties.put("hibernate.dialect", mySQLBDUrls.getHibernate_dialect());
 			hibernateProperties.put("hibernate.show_sql", mySQLBDUrls.getHibernate_show_sql());
 			hibernateProperties.put("hibernate.hbm2ddl.auto", mySQLBDUrls.getHibernate_hbm2ddl_auto());
-		}
+		}*/
 		
 		sessionFactory.setHibernateProperties(hibernateProperties);
 
