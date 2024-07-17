@@ -1,0 +1,116 @@
+
+		***************  mmtspl-address-service port : 9002 *******************
+		
+		*************** Angular Frontend --  mmtspl-address-service-frontend port : 5002 *******************
+		
+		
+SpringBoot
+RestController : CRUD @PatchMapping
+Hibernate : CRUD, @NamedQueries
+MySQL: DB connection
+Spring Exceptions
+Spring JUnit Testing
+
+
+
+application.properties 
+	
+	make  spring.jpa.hibernate.ddl-auto=create    only for first time for creating User table in CustomerData
+
+Database : MySQL
+
+SQL Queries : 
+
+	create database mmtspl_db;
+	use mmtspl_db;
+	show tables;
+	
+	CREATE TABLE CUSTOMER (id int(11) NOT NULL AUTO_INCREMENT,customerName varchar(255) DEFAULT NULL,email varchar(255) DEFAULT NULL,PRIMARY KEY (id));
+	
+	CREATE TABLE employee_master(employeeId int NOT NULL AUTO_INCREMENT, employeeName varchar(45) NOT NULL, employeeSalary float(35) NOT NULL, employeeAge int NOT NULL, employeeDesignation varchar(45), employeeAddress varchar(45) NOT NULL, PRIMARY KEY (employeeId)); 
+	desc employee_master;
+	insert into employee_master values (1000,"Mithun Majumdar", "150000", "42", "Tech Lead", "Pune,MH-12,India");
+	insert into employee_master values (1001,"Moumita Guha", "100000", "32", "Design Lead", "Mumbai,MH-31,India");
+	select * from employee_master;
+	
+	ALTER TABLE employee_master ADD address varchar(100) NOT NULL;
+	ALTER TABLE employee_master CHANGE COLUMN address employeeAddress varchar(100) NOT NULL;
+	update employee_master SET employeeAddress="Pune,MH-12,India" where employeeId=1000;
+	update employee_master SET employeeAddress="Mumbai,MH-01,India" where employeeId=1001;
+	drop table employee_master;
+	
+	CREATE TABLE department_master(departmentId int NOT NULL AUTO_INCREMENT, departmentName varchar(45) NOT NULL, departmentLocation varchar(45) NOT NULL, employeeId int NOT NULL, PRIMARY KEY (departmentId)); 
+	desc department_master;
+	insert into department_master values (2000,"IT-Backend", "Pune", "1000");
+	insert into department_master values (2001,"IT-Frontend", "Mumbai", "1001");
+	select * from department_master;
+	
+	update department_master set employeeId=2000 where departmentId=2001;
+	ALTER TABLE department_master CHANGE COLUMN employeeDesignation departmentLocation varchar(45) NOT NULL;
+	update department_master set departmentLocation="Pune" where departmentId=1001;
+	update department_master set departmentLocation="Mumbai" where departmentId=2001;
+	drop table department_master;
+	
+	CREATE TABLE address_master(addressId int NOT NULL auto_increment,employeeId INT NOT NULL,Locality varchar(45) NOT NULL,City varchar(45) NOT NULL,State varchar(45) NOT NULL,Country varchar(45) NOT NULL,zipcode int NOT NULL, PRIMARY KEY (addressId));
+	DESC address_master;
+	insert into address_master values(3000,1000,"Wagholi","Pune","MH-12","India",412207);
+	insert into address_master values(3001,1001,"Navi Mumbai","Mumbai","MH-01","India",400708);
+	SELECT * FROM address_master;
+	drop table address_master;
+	
+	select * from employee_master e, department_master d where e.employeeId = d.employeeId;
+	
+	select * from users;
+
+
+Start up the application :
+	1. Build and Run the application using Maven Build with   clean install spring-boot:run
+	
+	
+	
+application.properties 
+	
+	make  spring.jpa.hibernate.ddl-auto=none    and rerun the application after first time.
+	
+Url
+
+	http://localhost:9002/restapiaddressservices/addressservices
+	http://localhost:8765/mmtspl-address-service/restapiaddressservices/addressservices
+
+  	http://localhost:9002/restapiaddressservices/getAllAddress
+  	http://localhost:8765/mmtspl-address-service/restapiaddressservices/getAllAddress
+  	
+  	http://localhost:9002/restapiaddressservices/getAddressById/3000
+  	http://localhost:8765/mmtspl-address-service/restapiaddressservices/getAddressById/3000
+  	
+  	
+  	@NamedQuery
+	http://localhost:9002/restapiaddressservices/getAddressByCity/Pune
+	http://localhost:8765/mmtspl-address-service/restapiaddressservices/getAddressByCity/Pune
+	
+	
+	http://localhost:9002/restapiaddressservices/getAddressByEmployeeID/1000
+	http://localhost:8765/mmtspl-address-service/restapiaddressservices/getAddressByEmployeeID/1000
+	
+	http://localhost:9002/restapiaddressservices/getAddressByEmployeeIDAddressType/1000/Permanent
+	http://localhost:8765/mmtspl-address-service/restapiaddressservices/getAddressByEmployeeIDAddressType/1000/Permanent
+	
+	http://localhost:9002/restapiaddressservices/getAddressByAddressType/Permanent
+	http://localhost:8765/mmtspl-address-service/restapiaddressservices/getAddressByAddressType/Permanent
+	
+	
+	Join
+	
+	  	
+  	Global Exceptions ::
+  	http://localhost:9002/restapiaddressservices/getAddressByID/6000
+  	http://localhost:8765/mmtspl-address-service/restapiaddressservices/getAddressByID/6000
+  	
+  	http://localhost:9002/restapiaddressservices/getAddressByCity/Nagpur
+  	http://localhost:8765/mmtspl-address-service/restapiaddressservices/getAddressByCity/Nagpur
+  	
+  	
+  	
+   
+   
+   
