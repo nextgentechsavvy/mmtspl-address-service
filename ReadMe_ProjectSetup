@@ -75,40 +75,31 @@ application.properties
 Url
 
 	http://localhost:9002/restapiaddressservices/addressservices
-	http://localhost:8765/mmtspl-address-service/restapiaddressservices/addressservices
 
   	http://localhost:9002/restapiaddressservices/getAllAddress
-  	http://localhost:8765/mmtspl-address-service/restapiaddressservices/getAllAddress
-  	
+
   	http://localhost:9002/restapiaddressservices/getAddressById/3000
-  	http://localhost:8765/mmtspl-address-service/restapiaddressservices/getAddressById/3000
-  	
+
   	
   	@NamedQuery
 	http://localhost:9002/restapiaddressservices/getAddressByCity/Pune
-	http://localhost:8765/mmtspl-address-service/restapiaddressservices/getAddressByCity/Pune
-	
+
 	
 	http://localhost:9002/restapiaddressservices/getAddressByEmployeeID/1000
-	http://localhost:8765/mmtspl-address-service/restapiaddressservices/getAddressByEmployeeID/1000
-	
+
 	http://localhost:9002/restapiaddressservices/getAddressByEmployeeIDAddressType/1000/Permanent
-	http://localhost:8765/mmtspl-address-service/restapiaddressservices/getAddressByEmployeeIDAddressType/1000/Permanent
-	
+
 	http://localhost:9002/restapiaddressservices/getAddressByAddressType/Permanent
-	http://localhost:8765/mmtspl-address-service/restapiaddressservices/getAddressByAddressType/Permanent
-	
+
 	
 	Join
 	
 	  	
   	Global Exceptions ::
   	http://localhost:9002/restapiaddressservices/getAddressByID/6000
-  	http://localhost:8765/mmtspl-address-service/restapiaddressservices/getAddressByID/6000
-  	
+
   	http://localhost:9002/restapiaddressservices/getAddressByCity/Nagpur
-  	http://localhost:8765/mmtspl-address-service/restapiaddressservices/getAddressByCity/Nagpur
-  	
+
   	
   	
    
