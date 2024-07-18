@@ -82,18 +82,6 @@ public class MMTSPLAddressServiceController {
 	}
 
 	@Transactional
-	@GetMapping("/getAllEmployeeID")
-	public List<Integer> getAllEmployeeID() {
-		return addressService.getAllEmployeeID();
-	}
-	
-	@Transactional
-	@GetMapping("/getAddressByEmployeeID/{employeeId}")
-	public List<Address_Master> getAddressByEmployeeID(@PathVariable int employeeId) {
-		return addressService.getAddressByEmployeeID(employeeId);
-	}
-
-	@Transactional
 	@GetMapping("/getAddressByEmployeeIDAddressType/{employeeId}/{addressType}")
 	public List<Address_Master> getAddressByEmployeeIDAddressType(@PathVariable int employeeId, @PathVariable String addressType) {
 		return addressService.getAddressByEmployeeIDAddressType(employeeId,addressType);
@@ -107,8 +95,23 @@ public class MMTSPLAddressServiceController {
 
 	// ****************** Calling from FrontController ********************** //
 
-	
-	
+
+	//------------ Calling from Employee Service --------------------------//
+	@Transactional
+	@GetMapping("/getAllAddressEmployeeID")
+	public List<Integer> getAllAddressEmployeeID() {
+		return addressService.getAllAddressEmployeeID();
+	}
+
+	@Transactional
+	@GetMapping("/getAddressByEmployeeID/{employeeId}")
+	public List<Address_Master> getAddressByEmployeeID(@PathVariable int employeeId) {
+		return addressService.getAddressByEmployeeID(employeeId);
+	}
+	//------------ Calling from Employee Service --------------------------//
+
+
+
 
 	//********************************* Address_Master End *********************************************//
 	

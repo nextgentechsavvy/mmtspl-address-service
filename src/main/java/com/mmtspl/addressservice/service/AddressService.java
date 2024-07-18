@@ -74,22 +74,6 @@ public class AddressService {
 	}
 
 	@Transactional
-	public List<Integer> getAllEmployeeID()  {
-		List<Integer> addressList = addressRepository.getAllEmployeeID();
-			if(addressList == null) throw new AddressInfoByEmployeeIDNotFoundException(0);
-		return addressList;
-	}		
-	
-	@Transactional
-	public List<Address_Master> getAddressByEmployeeID(int employeeId)  {
-		
-		//return addressRepository.getAddress(id).orElseThrow(() -> new AddressNotFoundException(id));;
-		List<Address_Master> addressList = addressRepository.getAddressByEmployeeID(employeeId);
-			if(addressList == null) throw new AddressInfoByEmployeeIDNotFoundException(employeeId);
-		return addressList;
-	}
-
-	@Transactional
 	public List<Address_Master> getAddressByEmployeeIDAddressType(int employeeId, String addressType) {
 		
 		//return addressRepository.getAddress(id).orElseThrow(() -> new AddressNotFoundException(id));;
@@ -108,6 +92,27 @@ public class AddressService {
 	}
 
 	// ****************** Calling from FrontController ********************** //
+
+
+	//------------ Calling from Employee Service --------------------------//
+	@Transactional
+	public List<Integer> getAllAddressEmployeeID()  {
+		List<Integer> addressList = addressRepository.getAllAddressEmployeeID();
+		if(addressList == null) throw new AddressInfoByEmployeeIDNotFoundException(0);
+		return addressList;
+	}
+
+	@Transactional
+	public List<Address_Master> getAddressByEmployeeID(int employeeId)  {
+
+		//return addressRepository.getAddress(id).orElseThrow(() -> new AddressNotFoundException(id));;
+		List<Address_Master> addressList = addressRepository.getAddressByEmployeeID(employeeId);
+		if(addressList == null) throw new AddressInfoByEmployeeIDNotFoundException(employeeId);
+		return addressList;
+	}
+	//------------ Calling from Employee Service --------------------------//
+
+
 
 	public String getSubscriptionMessage(String user) {
 		return "Hello "+user+", Thanks for the subscription!";

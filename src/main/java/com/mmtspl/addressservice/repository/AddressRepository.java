@@ -81,13 +81,20 @@ public class AddressRepository {
 		return address;
 	}
 
+	@Transactional
 	public void updateAddress(Address_Master address) {
 		Session session = this.sessionFactory.getCurrentSession();
 		Hibernate.initialize(address);
 		session.update(address);
 	}
 
-	
+	@Transactional
+	public void updateAddressById(Address_Master address, int AddressId) {
+		Session session = this.sessionFactory.getCurrentSession();
+		Hibernate.initialize(address);
+		session.saveOrUpdate(String.valueOf(AddressId), address);
+	}
+
 	public boolean deleteAddress(int addressId) {
 		Session session = this.sessionFactory.getCurrentSession();
 		//Transaction transaction = session.beginTransaction();
@@ -127,52 +134,6 @@ public class AddressRepository {
 		try {
 				query = session.getNamedQuery("@HQL_Find_Address_By_City");
 				query.setParameter("city", city);
-				System.out.println("Named Query is : " + query.getQueryString());
-				
-				addressList = (List<Address_Master>) query.list().stream().collect(Collectors.toList());
-				//addressList = session.createQuery(query.toString()).list();
-				
-				if(addressList.isEmpty())
-					addressList = null;
-		}catch(AddressInfoByCityNotFoundException aibcnfe) {
-			aibcnfe.printStackTrace();
-		}finally {
-			//session.close();
-		}
-		
-		return addressList;
-	}
-	
-	
-	@SuppressWarnings("unchecked")
-	public List<Integer> getAllEmployeeID() {
-		Session session = this.sessionFactory.getCurrentSession();
-		List<Integer> employeeIDList = null;
-		try {
-			employeeIDList = session.createQuery("Select employeeId from Address_Master").list();
-		}catch(NoAddressDataFoundException naf) {
-			naf.printStackTrace();
-		}catch(RecordNotFoundNullPointerException rnfnpe) {
-			rnfnpe.printStackTrace();
-		}finally {
-			//session.close();
-		}
-		return employeeIDList;
-	}
-	
-	
-	
-	
-	@SuppressWarnings("unchecked")
-	public List<Address_Master> getAddressByEmployeeID(int employeeId) {
-		Session session = this.sessionFactory.getCurrentSession();
-		Query query = null;
-		//Optional<Address> addressOptional = null;
-		List<Address_Master> addressList= null;
-		
-		try {
-				query = session.getNamedQuery("@HQL_Find_Address_By_EmployeeID");
-				query.setParameter("employeeId", employeeId);
 				System.out.println("Named Query is : " + query.getQueryString());
 				
 				addressList = (List<Address_Master>) query.list().stream().collect(Collectors.toList());
@@ -245,11 +206,51 @@ public class AddressRepository {
 	
 	// ****************** Calling from FrontController ********************** //
 
-	@Transactional
-	public void updateAddressById(Address_Master address, int AddressId) {
+	//------------ Calling from Employee Service --------------------------//
+
+	@SuppressWarnings("unchecked")
+	public List<Integer> getAllAddressEmployeeID() {
 		Session session = this.sessionFactory.getCurrentSession();
-		Hibernate.initialize(address);
-		session.saveOrUpdate(String.valueOf(AddressId), address);
+		List<Integer> employeeIDList = null;
+		try {
+			employeeIDList = session.createQuery("Select employeeId from Address_Master").list();
+		}catch(NoAddressDataFoundException naf) {
+			naf.printStackTrace();
+		}catch(RecordNotFoundNullPointerException rnfnpe) {
+			rnfnpe.printStackTrace();
+		}finally {
+			//session.close();
+		}
+		return employeeIDList;
 	}
-	
+
+	@SuppressWarnings("unchecked")
+	public List<Address_Master> getAddressByEmployeeID(int employeeId) {
+		Session session = this.sessionFactory.getCurrentSession();
+		Query query = null;
+		//Optional<Address> addressOptional = null;
+		List<Address_Master> addressList= null;
+
+		try {
+			query = session.getNamedQuery("@HQL_Find_Address_By_EmployeeID");
+			query.setParameter("employeeId", employeeId);
+			System.out.println("Named Query is : " + query.getQueryString());
+
+			addressList = (List<Address_Master>) query.list().stream().collect(Collectors.toList());
+			//addressList = session.createQuery(query.toString()).list();
+
+			if(addressList.isEmpty())
+				addressList = null;
+		}catch(AddressInfoByCityNotFoundException aibcnfe) {
+			aibcnfe.printStackTrace();
+		}finally {
+			//session.close();
+		}
+
+		return addressList;
+	}
+	//------------ Calling from Employee Service --------------------------//
+
+
+
 }
